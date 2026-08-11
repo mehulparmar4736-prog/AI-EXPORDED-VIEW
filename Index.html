@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kal-Purja — Take the machine apart</title>
+<meta name="description" content="An interactive exploded-view tool for mechanical engineering students. Click any part of an IC Engine to see its function, material, manufacturing process and design equations.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#" aria-label="Kal-Purja home">
+      <span class="brand-mark">KP</span>
+      <span class="brand-name">Kal<span class="brand-accent">-</span>Purja</span>
+    </a>
+    <p class="tagline">Pull it apart. See how it works.</p>
+    <div class="search-wrap">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <input type="search" id="searchInput" class="search-input" placeholder="Search a part… piston, crankshaft" autocomplete="off">
+    </div>
+  </div>
+</header>
+<div class="hatch-divider" aria-hidden="true"></div>
+
+<main>
+  <section class="machine-select" aria-label="Choose a machine">
+    <div class="machine-chips">
+      <button class="machine-chip active" data-machine="ic-engine">IC Engine</button>
+      <button class="machine-chip" disabled title="Coming in phase 2">Gearbox</button>
+      <button class="machine-chip" disabled title="Coming in phase 2">Lathe</button>
+      <button class="machine-chip" disabled title="Coming in phase 2">Boiler</button>
+    </div>
+    <p class="hint">Drag to rotate · Scroll or pinch to zoom · Tap a part to select it</p>
+  </section>
+
+  <section class="viewer-shell">
+    <aside class="parts-rail" aria-label="Component list">
+      <h2 class="rail-title">Components</h2>
+      <div class="parts-list" id="partsList"><!-- injected by script.js --></div>
+    </aside>
+
+    <div class="canvas-wrap">
+      <div class="titleblock" id="titleblock">
+        <span class="tb-field"><b>VIEWING</b><em id="tbName">—</em></span>
+        <span class="tb-field"><b>MATERIAL</b><em id="tbMaterial">—</em></span>
+        <span class="tb-field"><b>EXPLODE</b><em id="tbExplode">0%</em></span>
+      </div>
+
+      <canvas id="viewerCanvas"></canvas>
+
+      <div class="viewer-controls">
+        <div class="explode-control">
+          <span class="explode-label">ASSEMBLED</span>
+          <input type="range" id="explodeSlider" min="0" max="100" value="35" step="1" aria-label="Explosion amount">
+          <span class="explode-label">EXPLODED</span>
+        </div>
+        <button class="btn-reset" id="resetCam" type="button">Reset view</button>
+      </div>
+    </div>
+
+    <aside class="info-panel" aria-label="Component details">
+      <div class="info-tabs" role="tablist">
+        <button class="tab active" data-tab="function" role="tab">Function</button>
+        <button class="tab" data-tab="material" role="tab">Material</button>
+        <button class="tab" data-tab="manufacturing" role="tab">Manufacturing</button>
+        <button class="tab" data-tab="forces" role="tab">Forces &amp; Design</button>
+      </div>
+      <div class="info-body" id="infoBody"><!-- injected by script.js --></div>
+      <div class="curriculum-tags" id="curriculumTags"><!-- injected by script.js --></div>
+    </aside>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Kal-Purja · Phase 1 schematic models · Built for GTU diploma mechanical study</p>
+</footer>
+
+<noscript>This tool needs JavaScript to render the 3D exploded view.</noscript>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
+
